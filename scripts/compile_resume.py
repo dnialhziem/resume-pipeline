@@ -134,6 +134,18 @@ def ats_languages(d: dict) -> str:
 
 # ── VISUAL BUILDERS ───────────────────────────────────────────────────────────
 
+def visual_photo(d: dict) -> str:
+    photo_path = d.get("photo", "")
+    if photo_path:
+        import base64, mimetypes
+        p = ROOT / photo_path
+        if p.exists():
+            mime = mimetypes.guess_type(str(p))[0] or "image/jpeg"
+            b64 = base64.b64encode(p.read_bytes()).decode()
+            return f'<img src="data:{mime};base64,{b64}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">'
+    return '<div class="photo-placeholder"></div>'
+
+
 def visual_name(d: dict) -> str:
     h = d["header"]
     return (
@@ -280,6 +292,7 @@ def compile_ats(d: dict):
 
 def compile_visual(d: dict):
     html = VISUAL_PATH.read_text(encoding="utf-8")
+    html = inject(html, "PHOTO",      visual_photo(d))
     html = inject(html, "NAME",       visual_name(d))
     html = inject(html, "CONTACT",    visual_contact(d))
     html = inject(html, "TAGLINE",    visual_tagline(d))

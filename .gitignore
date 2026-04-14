@@ -1,6 +1,12 @@
 # Personal data — never commit this
 resume/data.json
 
+# User photo — add locally, never commit
+resume/photo.*
+resume/*.jpg
+resume/*.jpeg
+resume/*.png
+
 # Python
 __pycache__/
 *.pyc
