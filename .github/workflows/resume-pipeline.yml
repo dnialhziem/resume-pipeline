@@ -15,16 +15,15 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Chrome
-        uses: browser-actions/setup-chrome@v1
-
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install requests websocket-client
+        run: |
+          pip install playwright
+          python -m playwright install chromium --with-deps
 
       - name: Use template if no data.json present
         run: |
