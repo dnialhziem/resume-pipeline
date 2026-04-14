@@ -26,6 +26,12 @@ jobs:
       - name: Install dependencies
         run: pip install requests websocket-client
 
+      - name: Use template if no data.json present
+        run: |
+          if [ ! -f resume/data.json ]; then
+            cp resume/data.template.json resume/data.json
+          fi
+
       - name: Compile resume content from data.json
         run: python scripts/compile_resume.py
 
