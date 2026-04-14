@@ -1,0 +1,70 @@
+{
+  "header": {
+    "name_full":  "FULL LEGAL NAME IN UPPERCASE",
+    "name_short": "First Name Last Name",
+    "role":       "Your Role &amp; Tagline for Visual Resume",
+    "tagline":    "One punchy sentence — what you do and why it matters.",
+    "subtitle":   "Your Title (e.g. Software Engineering Student)"
+  },
+  "contact": {
+    "phone":            "04XX XXX XXX",
+    "email":            "you@email.com",
+    "linkedin_handle":  "your-linkedin-handle",
+    "linkedin_url":     "https://linkedin.com/in/your-linkedin-handle",
+    "github_handle":    "github.com/yourusername",
+    "github_url":       "https://github.com/yourusername",
+    "location":         "City, Country"
+  },
+  "profile": "Write 2-4 sentences: who you are, what you build or do, and what you are working toward.",
+  "skills": [
+    { "category": "Languages &amp; Scripting", "color": "blue",  "items": ["Skill 1", "Skill 2"] },
+    { "category": "Cloud &amp; DevOps",        "color": "teal",  "items": ["Skill 1", "Skill 2"] },
+    { "category": "APIs &amp; Automation",     "color": "grape", "items": ["Skill 1", "Skill 2"] },
+    { "category": "Tools",                     "color": "slate", "items": ["Tool 1", "Tool 2"] }
+  ],
+  "languages": [
+    { "name": "English", "level": "Full Professional", "dots": 5 },
+    { "name": "Language 2", "level": "Native",         "dots": 5 }
+  ],
+  "certifications": [
+    { "name": "Cert Name", "sub": "Issuing Body", "status": "done" },
+    { "name": "Cert Name", "sub": "Issuing Body", "status": "in_progress" }
+  ],
+  "projects": [
+    {
+      "title":       "Project Name &mdash; Short Description",
+      "badge_label": "Badge Text",
+      "badge_style": "background:#f0fdfa;color:#0f766e;border:1px solid #99f6e4;",
+      "date":        "Mon YYYY &ndash; Present",
+      "location":    "City, Country",
+      "url":         "https://github.com/yourusername/project",
+      "url_label":   "github.com/yourusername/project",
+      "bullets": [
+        "What you built and why it matters — lead with the outcome.",
+        "A specific technical decision and what it achieved.",
+        "A third bullet showing scale, impact, or discipline."
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "title":    "Job Title or Role",
+      "org":      "Organisation Name",
+      "date":     "Mon YYYY &ndash; Mon YYYY",
+      "location": "City, Country",
+      "bullets": [
+        "Achievement with a number: managed X people, raised $Y, reduced Z by N%.",
+        "Second achievement showing scope or leadership."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree":   "Degree Name &mdash; Major",
+      "org":      "University Name",
+      "date":     "Mon YYYY &ndash; Mon YYYY",
+      "location": "City, Country",
+      "note":     "Scholarship, GPA, relevant coursework, or notable awards."
+    }
+  ]
+}
