@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; font-size: 9pt; color: #0f172a; width: 210mm; }
+
+/* ── LAYOUT ── */
+.layout { display: table; width: 100%; height: 297mm; border-collapse: collapse; }
+.body-row { height: 100%; }
+
+/* ══════════════════════════════
+   HEADER
+══════════════════════════════ */
+.hdr { display: table-row; }
+.hdr-cell {
+  display: table-cell;
+  background: linear-gradient(135deg, #0d2137 0%, #1a3a6e 60%, #1e4080 100%);
+  padding: 16px 32px 16px 26px;
+  vertical-align: middle;
+}
+.hdr-inner { display: flex; align-items: center; gap: 24px; }
+
+/* Photo: double-ring effect */
+.photo-wrap {
+  flex-shrink: 0;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  padding: 3px;
+  background: rgba(255,255,255,0.22);
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.08), 0 6px 18px rgba(0,0,0,0.35);
+}
+
+.photo-placeholder {
+  width: 100%; height: 100%;
+  background: #c8d8ea;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.photo-inner {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.5);
+}
+.hdr-name {
+  font-size: 17pt; font-weight: 700; color: #fff;
+  line-height: 1.15; letter-spacing: 0.2px;
+}
+.hdr-role {
+  font-size: 7.5pt; color: #93c5fd;
+  margin-top: 5px; letter-spacing: 1px;
+  text-transform: uppercase; font-weight: 600;
+}
+.hdr-divider {
+  width: 38px; height: 2px;
+  background: linear-gradient(90deg, #3b82f6, transparent);
+  margin: 5px 0;
+  border-radius: 2px;
+}
+.hdr-tagline {
+  font-size: 8.5pt; color: rgba(255,255,255,0.72);
+  line-height: 1.5; max-width: 430px; font-style: italic;
+}
+
+/* ══════════════════════════════
+   BODY COLUMNS
+══════════════════════════════ */
+.body-row { display: table-row; }
+.sidebar {
+  display: table-cell; width: 30%;
+  background: #e9eff6;
+  vertical-align: top;
+  padding: 14px 14px 20px 17px;
+  border-right: 2px solid #cbd5e1;
+}
+.main {
+  display: table-cell; width: 70%;
+  background: #ffffff;
+  vertical-align: top;
+  padding: 14px 26px 18px 20px;
+}
+
+/* ══════════════════════════════
+   SIDEBAR — SECTION HEADERS
+══════════════════════════════ */
+.sb-sec {
+  font-size: 7.5pt; font-weight: 700; color: #0d2137;
+  text-transform: uppercase; letter-spacing: 0.9px;
+  display: flex; align-items: center; gap: 6px;
+  margin: 11px 0 6px 0;
+}
+.sb-sec:first-child { margin-top: 0; }
+.sb-sec-line {
+  flex: 1; height: 1.5px;
+  background: linear-gradient(90deg, #2563eb 0%, #bfdbfe 100%);
+  border-radius: 1px;
+}
+
+/* ══════════════════════════════
+   SIDEBAR — CONTACT
+══════════════════════════════ */
+.sb-row { display: flex; align-items: flex-start; gap: 7px; margin-bottom: 4px; }
+.sb-icon-wrap {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #2563eb; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 8pt; font-weight: bold;
+  line-height: 1;
+}
+.sb-val { font-size: 8pt; color: #334155; line-height: 1.5; padding-top: 1px; }
+.sb-val a { color: #1e3a6e; text-decoration: none; }
+
+/* ══════════════════════════════
+   SIDEBAR — SKILLS
+══════════════════════════════ */
+.sk-cat {
+  font-size: 7pt; color: #1e3a6e; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin: 6px 0 3px 0;
+}
+.sk-wrap { line-height: 1.7; }
+.sk-tag {
+  display: inline-block; font-size: 7pt; font-weight: 600;
+  border-radius: 12px; padding: 1px 6px; margin: 1px 2px 1px 0;
+  line-height: 1.5;
+}
+.sk-blue  { background: #dbeafe; color: #1d4ed8; }
+.sk-teal  { background: #ccfbf1; color: #0f766e; }
+.sk-grape { background: #ede9fe; color: #6d28d9; }
+.sk-slate { background: #e2e8f0; color: #334155; }
+
+/* ══════════════════════════════
+   SIDEBAR — LANGUAGES (dots)
+══════════════════════════════ */
+.lang-item { margin-bottom: 5px; }
+.lang-name { font-size: 8pt; font-weight: 700; color: #0f172a; }
+.lang-level { font-size: 7pt; color: #64748b; margin-bottom: 2px; }
+.lang-dots { font-size: 9pt; letter-spacing: 2px; line-height: 1; }
+.dot-on  { color: #2563eb; }
+.dot-off { color: #cbd5e1; }
+
+/* ══════════════════════════════
+   SIDEBAR — CERTIFICATIONS
+══════════════════════════════ */
+.cert-card {
+  border-left: 3px solid #2563eb;
+  background: #fff;
+  border-radius: 0 6px 6px 0;
+  padding: 4px 7px;
+  margin-bottom: 4px;
+}
+.cert-name { font-size: 8pt; font-weight: 700; color: #0f172a; }
+.cert-sub  { font-size: 7pt; color: #64748b; margin-top: 1px; }
+.cert-inprogress { color: #2563eb; font-size: 7pt; font-weight: 600; }
+
+/* ══════════════════════════════
+   MAIN — SECTION HEADERS
+══════════════════════════════ */
+.sec {
+  font-size: 8.5pt; font-weight: 700; color: #0d2137;
+  text-transform: uppercase; letter-spacing: 0.8px;
+  display: flex; align-items: center; gap: 8px;
+  margin: 11px 0 7px 0;
+  break-after: avoid; page-break-after: avoid;
+  break-inside: avoid; page-break-inside: avoid;
+}
+.sec:first-child { margin-top: 0; }
+.sec-dot {
+  width: 8px; height: 8px; border-radius: 2px;
+  background: #2563eb; flex-shrink: 0;
+}
+.sec-line {
+  flex: 1; height: 1.5px;
+  background: linear-gradient(90deg, #2563eb 0%, #e0e7ff 100%);
+  border-radius: 1px;
+}
+
+/* ══════════════════════════════
+   MAIN — PROFILE
+══════════════════════════════ */
+.profile-box {
+  background: #f0f7ff;
+  border-left: 3px solid #2563eb;
+  border-radius: 0 6px 6px 0;
+  padding: 7px 11px;
+}
+.profile-text { font-size: 8.5pt; color: #334155; line-height: 1.5; }
+
+/* ══════════════════════════════
+   MAIN — ENTRIES (timeline style)
+══════════════════════════════ */
+.entry {
+  margin-bottom: 8px; break-inside: avoid;
+  border-left: 3px solid #2563eb;
+  padding-left: 10px;
+  position: relative;
+}
+.e-title { font-size: 9pt; font-weight: 700; color: #0f172a; }
+.e-org   { font-size: 8pt; font-weight: 600; color: #2563eb; margin-top: 1px; }
+.e-meta  { font-size: 7.5pt; color: #64748b; margin: 1px 0 4px 0; }
+.bul { list-style: none; padding: 0; margin: 0; }
+.bul li {
+  font-size: 8pt; color: #374151; line-height: 1.45; margin-bottom: 2px;
+  padding-left: 12px; position: relative;
+}
+.bul li::before {
+  content: "▪";
+  color: #2563eb;
+  position: absolute; left: 0; top: 0;
+  font-size: 9pt;
+}
+
+/* ══════════════════════════════
+   MAIN — EDUCATION
+══════════════════════════════ */
+.ed-entry {
+  margin-bottom: 7px; break-inside: avoid;
+  border-left: 3px solid #94a3b8;
+  padding-left: 10px;
+}
+.ed-deg  { font-size: 9pt; font-weight: 700; color: #0f172a; }
+.ed-org  { font-size: 8.5pt; font-weight: 600; color: #2563eb; margin-top: 1px; }
+.ed-meta { font-size: 7.5pt; color: #64748b; margin: 2px 0 3px 0; }
+.ed-note { font-size: 8pt; color: #475569; line-height: 1.5; }
+
+/* ══════════════════════════════
+   BADGE
+══════════════════════════════ */
+.badge {
+  display: inline-block; font-size: 6.5pt; font-weight: 700;
+  border-radius: 10px; padding: 1px 7px;
+  vertical-align: middle; margin-left: 5px;
+  letter-spacing: 0.3px; line-height: 1.6;
+}
+.badge-blue   { background: #2563eb; color: #fff; }
+.badge-teal   { background: #0d9488; color: #fff; }
+</style>
+</head>
+<body>
+<table class="layout">
+
+<!-- HEADER -->
+<tr class="hdr">
+  <td class="hdr-cell" colspan="2">
+    <div class="hdr-inner">
+      <div class="photo-wrap">
+        <div class="photo-inner"><!-- BUILD:PHOTO_START -->
+        <!-- BUILD:PHOTO_END -->
+      </div>
+      </div>
+      <div class="hdr-text">
+<!-- BUILD:NAME_START -->
+        <div class="hdr-name">Muhammad Danial Haziem</div>
+        <div class="hdr-role">Computing &amp; Software Systems &nbsp;&middot;&nbsp; University of Melbourne &nbsp;&middot;&nbsp; AWS DVA-C02 Candidate</div>
+<!-- BUILD:NAME_END -->
+        <div class="hdr-divider"></div>
+        <!-- BUILD:TAGLINE_START -->
+<div class="hdr-tagline">I build Python automation tools that turn multi-step manual workflows into single commands &mdash; clean code, real results.</div>
+<!-- BUILD:TAGLINE_END --></div>
+      </div>
+    </div>
+  </td>
+</tr>
+
+<!-- BODY -->
+<tr class="body-row">
+
+<!-- ════ SIDEBAR ════ -->
+<td class="sidebar">
+
+  <div class="sb-sec">Contact <div class="sb-sec-line"></div></div>
+
+<!-- BUILD:CONTACT_START -->
+  <div class="sb-row">
+    <div class="sb-icon-wrap">&#9742;</div>
+    <span class="sb-val">0432 706 434</span>
+  </div>
+  <div class="sb-row">
+    <div class="sb-icon-wrap" style="font-size:6.5pt;">@</div>
+    <span class="sb-val"><a href="mailto:haziemnasir@gmail.com">haziemnasir@gmail.com</a></span>
+  </div>
+  <div class="sb-row">
+    <div class="sb-icon-wrap" style="font-size:6pt;font-weight:900;">in</div>
+    <span class="sb-val"><a href="https://linkedin.com/in/danialhaziem-nasir">danialhaziem-nasir</a></span>
+  </div>
+  <div class="sb-row">
+    <div class="sb-icon-wrap" style="font-size:7pt;">&#9654;</div>
+    <span class="sb-val"><a href="https://github.com/dnialhziem">github.com/dnialhziem</a></span>
+  </div>
+  <div class="sb-row">
+    <div class="sb-icon-wrap" style="font-size:7pt;">&#9679;</div>
+    <span class="sb-val">Melbourne, Australia</span>
+  </div>
+<!-- BUILD:CONTACT_END -->
+
+  <div class="sb-sec">Skills <div class="sb-sec-line"></div></div>
+
+<!-- BUILD:SKILLS_START -->
+  <div class="sk-cat">Languages &amp; Scripting</div>
+  <div class="sk-wrap">
+    <span class="sk-tag sk-blue">Python</span>
+    <span class="sk-tag sk-blue">Bash</span>
+    <span class="sk-tag sk-blue">HTML/CSS</span>
+  </div>
+  <div class="sk-cat">Cloud &amp; DevOps</div>
+  <div class="sk-wrap">
+    <span class="sk-tag sk-teal">AWS (DVA-C02)</span>
+    <span class="sk-tag sk-teal">Lambda</span>
+    <span class="sk-tag sk-teal">S3</span>
+    <span class="sk-tag sk-teal">DynamoDB</span>
+    <span class="sk-tag sk-teal">IAM</span>
+    <span class="sk-tag sk-teal">GitHub Actions</span>
+    <span class="sk-tag sk-teal">Git &amp; GitHub</span>
+    <span class="sk-tag sk-teal">CI/CD</span>
+    <span class="sk-tag sk-teal">Linux/Unix</span>
+  </div>
+  <div class="sk-cat">APIs &amp; Automation</div>
+  <div class="sk-wrap">
+    <span class="sk-tag sk-grape">REST APIs</span>
+    <span class="sk-tag sk-grape">Ollama (local LLM)</span>
+    <span class="sk-tag sk-grape">JSON/YAML</span>
+  </div>
+  <div class="sk-cat">Tools</div>
+  <div class="sk-wrap">
+    <span class="sk-tag sk-slate">Claude Code</span>
+    <span class="sk-tag sk-slate">yt-dlp</span>
+    <span class="sk-tag sk-slate">NotebookLM</span>
+    <span class="sk-tag sk-slate">Excel</span>
+  </div>
+<!-- BUILD:SKILLS_END -->
+
+  <div class="sb-sec">Languages <div class="sb-sec-line"></div></div>
+
+<!-- BUILD:LANGUAGES_START -->
+  <div class="lang-item">
+    <div class="lang-name">English</div>
+    <div class="lang-level">Full Professional &mdash; TOEFL certified</div>
+    <div class="lang-dots"><span class="dot-on"></span><span class="dot-on"></span><span class="dot-on"></span><span class="dot-on"></span><span class="dot-on"></span></div>
+  </div>
+  <div class="lang-item">
+    <div class="lang-name">Malay</div>
+    <div class="lang-level">Native</div>
+    <div class="lang-dots"><span class="dot-on"></span><span class="dot-on"></span><span class="dot-on"></span><span class="dot-on"></span><span class="dot-on"></span></div>
+  </div>
+<!-- BUILD:LANGUAGES_END -->
+
+  <div class="sb-sec">Certifications <div class="sb-sec-line"></div></div>
+
+<!-- BUILD:CERTS_START -->
+  <div class="cert-card"><div class="cert-name">AWS DVA-C02</div><div class="cert-inprogress">&#8226; In progress</div></div>
+  <div class="cert-card"><div class="cert-name">TOEFL iBT</div><div class="cert-sub">English Full Professional Proficiency</div></div>
+  <div class="cert-card"><div class="cert-name">OSH Coordinator</div><div class="cert-sub">Occupational Safety &amp; Health</div></div>
+<!-- BUILD:CERTS_END -->
+
+</td>
+
+<!-- ════ MAIN CONTENT ════ -->
+<td class="main">
+
+  <div class="sec"><div class="sec-dot"></div>Profile<div class="sec-line"></div></div>
+  <div class="profile-box">
+<!-- BUILD:PROFILE_START -->
+    <p class="profile-text">I build Python automation tools that solve real problems: a CI/CD pipeline that auto-compiles a resume on every Git push, a CLI that chains YouTube search and AI analysis into a single command, and scripts that eliminate hours of manual work. First-year Computing and Software Systems student at the University of Melbourne on a government merit scholarship (YTP-MARA). Comfortable with Git, REST APIs, Linux, and GitHub Actions. Working toward AWS DVA-C02 certification.</p>
+<!-- BUILD:PROFILE_END -->
+  </div>
+
+  <div class="sec"><div class="sec-dot"></div>Projects<div class="sec-line"></div></div>
+
+<!-- BUILD:PROJECTS_START -->
+  <div class="entry">
+    <div class="e-title">CareerOps &mdash; Automated Resume &amp; LinkedIn Pipeline <span class="badge" style="background:#f0fdfa;color:#0f766e;border:1px solid #99f6e4;">CI/CD</span></div>
+    <div class="e-meta">Mar 2026 &ndash; Present&nbsp;&middot;&nbsp; <a href="https://github.com/dnialhziem/career-toolkit" style="color:#2563eb;text-decoration:none;">github.com/dnialhziem/career-toolkit</a></div>
+    <ul class="bul">
+      <li>Built a GitHub Actions pipeline that automatically compiles a PDF resume on every code push &mdash; no manual steps required.</li>
+      <li>Built an Ollama-powered CLI that ingests a job description and generates targeted resume rewrites, ATS keyword gaps, and tailoring suggestions &mdash; locally, with no API cost.</li>
+      <li>Delivered a zero-cost production pipeline by architecting the full CI/CD workflow on GitHub Actions and Ollama &mdash; eliminating toolchain spend while maintaining automated build and publish capability on every commit.</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="e-title">claude-buddy &mdash; CLI Automation System <span class="badge" style="background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;">Open Source</span></div>
+    <div class="e-meta">Mar 2026 &ndash; Present&nbsp;&middot;&nbsp; <a href="https://github.com/dnialhziem/claude-buddy" style="color:#2563eb;text-decoration:none;">github.com/dnialhziem/claude-buddy</a></div>
+    <ul class="bul">
+      <li>Built a CLI tool that chains YouTube search, AI analysis, and note export into a single command to automate a personal research workflow.</li>
+      <li>Engineered a suite of Python automation scripts &mdash; GitHub publish pipeline, LinkedIn post generator, and resume PDF compiler &mdash; collapsing multi-step manual workflows into single-command execution.</li>
+      <li>Enforced production-grade version control hygiene across a multi-script Python project: conventional commit history, secret-free VCS, and a branching strategy that kept main always deployable.</li>
+    </ul>
+  </div>
+<!-- BUILD:PROJECTS_END -->
+
+  <div class="sec"><div class="sec-dot"></div>Experience<div class="sec-line"></div></div>
+
+<!-- BUILD:EXPERIENCE_START -->
+  <div class="entry">
+    <div class="e-title">Building Bridges of Support &mdash; Community Outreach Project</div>
+    <div class="e-org">National Cancer Society Malaysia (NCSM) &amp; Pertiwi Soup Kitchen</div>
+    <div class="e-meta">Aug 2023 &ndash; Mar 2025 &nbsp;&middot;&nbsp; Malaysia</div>
+    <ul class="bul">
+      <li>Organised a free HPV vaccination drive for 100+ students across 3 institutions, acting as the main liaison between NCSM, the college, and students &mdash; achieving 100% uptake with zero delays.</li>
+      <li>Led a campus fundraising campaign raising RM 5,000 to fund food and aid distribution to homeless communities in Kuala Lumpur, managing volunteer logistics across multiple field sessions.</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="e-title">Community Volunteer</div>
+    <div class="e-org">Rumah Anak Yatim Radatul Solihin (RAYAS)</div>
+    <div class="e-meta">Jul 2024 &ndash; Dec 2024 &nbsp;&middot;&nbsp; Malaysia</div>
+    <ul class="bul">
+      <li>Visited weekly and planned structured programmes for orphaned children including house-cleaning drives, ice-breaking activities, and Eid celebrations.</li>
+      <li>Delivered consistent community engagement across recurring visits, building long-term rapport and programme continuity with the resident children.</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="e-title">Innovation Competition Participant</div>
+    <div class="e-org">MARA College Banting</div>
+    <div class="e-meta">Aug 2023 &ndash; May 2025 &nbsp;&middot;&nbsp; Malaysia</div>
+    <ul class="bul">
+      <li>Won Gold at IIEC 2023 and 2nd place at AINS for two engineering innovation projects, competing against 50+ national teams.</li>
+      <li>Competed in the Bebras International Computational Thinking Competition 2024, representing Malaysia in an algorithmic problem-solving contest held across 60+ countries &mdash; demonstrating applied logic and discrete reasoning under exam conditions.</li>
+    </ul>
+  </div>
+<!-- BUILD:EXPERIENCE_END -->
+
+  <div class="sec"><div class="sec-dot"></div>Education<div class="sec-line"></div></div>
+
+<!-- BUILD:EDUCATION_START -->
+  <div class="ed-entry">
+    <div class="ed-deg">Bachelor of Science &mdash; Computing and Software Systems</div>
+    <div class="ed-org">University of Melbourne</div>
+    <div class="ed-meta">Jan 2026 &ndash; Dec 2028 &nbsp;&middot;&nbsp; Melbourne, Australia</div>
+    <div class="ed-note">YTP-MARA Scholar &mdash; government merit scholarship for high-achieving Malaysian students. Focus: software engineering, cloud computing, AI systems.</div>
+  </div>
+  <div class="ed-entry">
+    <div class="ed-deg">International Baccalaureate Diploma</div>
+    <div class="ed-org">MARA College Banting</div>
+    <div class="ed-meta">Aug 2023 &ndash; May 2025 &nbsp;&middot;&nbsp; Banting, Malaysia</div>
+    <div class="ed-note">Score: 39/45 (top 10% globally) &mdash; HL: Chemistry (6), English B (6), Mathematics AA (5) | SL: Physics (7), Digital Society (6), Malay A (6). Extended Essay Grade A.</div>
+  </div>
+<!-- BUILD:EDUCATION_END -->
+
+</td>
+</tr>
+</table>
+</body>
+</html>
