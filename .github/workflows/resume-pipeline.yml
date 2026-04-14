@@ -1,0 +1,49 @@
+name: Resume Pipeline
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build-resume:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests websocket-client
+
+      - name: Compile resume content from data.json
+        run: python scripts/compile_resume.py
+
+      - name: Compile ATS resume PDF
+        run: python .claude/skills/ats-resume/compile.py resume/resume.html resume/resume.pdf
+
+      - name: Compile visual resume PDF
+        run: python .claude/skills/ats-resume/compile.py resume/resume_visual.html resume/resume_visual.pdf
+
+      - name: Delete old release (if exists)
+        run: gh release delete resume-latest --yes || true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to GitHub Release
+        run: |
+          gh release create resume-latest resume/resume.pdf resume/resume_visual.pdf \
+            --title "Latest Resume" \
+            --notes "Auto-generated on push to main."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
